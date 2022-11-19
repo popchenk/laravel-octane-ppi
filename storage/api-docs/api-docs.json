@@ -1,0 +1,213 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PPI Api",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login User",
+                "description": "Login User",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "description": "User to login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "title": "email",
+                                        "description": "email of User",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "title": "password",
+                                        "description": "password of User",
+                                        "type": "password",
+                                        "example": "pass12Erasd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register new User",
+                "description": "Register new User",
+                "operationId": "registerUser",
+                "requestBody": {
+                    "description": "User to register",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "title": "id",
+                                        "description": "id of User",
+                                        "type": "integer",
+                                        "readOnly": "true",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "title": "name",
+                                        "description": "name of User",
+                                        "type": "string",
+                                        "example": "Jozef Bugal"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "description": "email of User",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "title": "password",
+                                        "description": "password of User",
+                                        "type": "password",
+                                        "example": "pass12Erasd"
+                                    },
+                                    "password_confirmation": {
+                                        "title": "password_confirmation",
+                                        "description": "password confirmation of User",
+                                        "type": "password",
+                                        "example": "pass12Erasd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "description": "Home page",
+                "responses": {
+                    "default": {
+                        "description": "Welcome page"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of User",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of User",
+                        "type": "string",
+                        "example": "Jozef Bugal"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "email of User",
+                        "type": "string"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "password of User",
+                        "type": "password",
+                        "example": "pass12Erasd"
+                    },
+                    "password_confirmation": {
+                        "title": "password_confirmation",
+                        "description": "password confirmation of User",
+                        "type": "password",
+                        "example": "pass12Erasd"
+                    }
+                },
+                "type": "object"
+            },
+            "Users": {
+                "title": "Users",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "User--id": {
+                "name": "User_id",
+                "in": "path",
+                "description": "Id of User",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            }
+        }
+    }
+}
