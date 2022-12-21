@@ -81,11 +81,17 @@
                                         "readOnly": "true",
                                         "example": "1"
                                     },
-                                    "name": {
+                                    "first_name": {
                                         "title": "name",
-                                        "description": "name of User",
+                                        "description": "first name of User",
                                         "type": "string",
-                                        "example": "Jozef Bugal"
+                                        "example": "Jozef"
+                                    },
+                                    "last_name": {
+                                        "title": "name",
+                                        "description": "first name of User",
+                                        "type": "string",
+                                        "example": "Bugal"
                                     },
                                     "email": {
                                         "title": "email",
@@ -103,6 +109,37 @@
                                         "description": "password confirmation of User",
                                         "type": "password",
                                         "example": "pass12Erasd"
+                                    },
+                                    "address": {
+                                        "title": "address",
+                                        "description": "address of User",
+                                        "type": "string"
+                                    },
+                                    "date_of_birth": {
+                                        "title": "date_of_birth",
+                                        "description": "Users date of Birth",
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "phone": {
+                                        "title": "phone",
+                                        "description": "Users Phone number",
+                                        "type": "string"
+                                    },
+                                    "phone_code": {
+                                        "title": "phone_code",
+                                        "description": "Users Phone Code",
+                                        "type": "string"
+                                    },
+                                    "nationality": {
+                                        "title": "nationality",
+                                        "description": "Users Nationality",
+                                        "type": "string"
+                                    },
+                                    "details": {
+                                        "title": "details",
+                                        "description": "User Details",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -132,6 +169,265 @@
                 }
             }
         },
+        "/api/language/store": {
+            "post": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Create new Language",
+                "description": "Create new Language",
+                "operationId": "createLanguage",
+                "requestBody": {
+                    "description": "Language to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "title": "id",
+                                        "description": "id of Language",
+                                        "type": "integer",
+                                        "readOnly": "true",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "title": "name",
+                                        "description": "name of Language",
+                                        "type": "string",
+                                        "example": "Czech"
+                                    },
+                                    "abbreviation": {
+                                        "title": "abbreviation",
+                                        "description": "abbreviation of Language",
+                                        "type": "string",
+                                        "example": "CZ"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Language stored",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Language"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/language/get": {
+            "get": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Get all Languages",
+                "description": "Get all Languages",
+                "operationId": "getLanguages",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Get Languages",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Language"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/translation/store": {
+            "post": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Create new Translation",
+                "description": "Create new Translation",
+                "operationId": "createTranslation",
+                "requestBody": {
+                    "description": "Translation to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "title": "id",
+                                        "description": "id of Translation",
+                                        "type": "integer",
+                                        "readOnly": "true",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "title": "name",
+                                        "description": "name of Translation",
+                                        "type": "string",
+                                        "example": "Error 404 page"
+                                    },
+                                    "render": {
+                                        "title": "render",
+                                        "description": "render Text",
+                                        "type": "string",
+                                        "example": "Bohužel, stránka se nepodařila načíst."
+                                    },
+                                    "language_id": {
+                                        "title": "language_id",
+                                        "description": "id of Language",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation stored",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Translation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/translation/get": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Get all Translations",
+                "description": "Get all Translation",
+                "operationId": "getTranslations",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Get Translations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Translation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/translation/patch/{id}": {
+            "patch": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Update Translation",
+                "description": "Update Translation",
+                "operationId": "patchTranslation",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID to patch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Translation to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "title": "name",
+                                        "description": "name of Translation",
+                                        "type": "string",
+                                        "example": "Error 404 page"
+                                    },
+                                    "render": {
+                                        "title": "render",
+                                        "description": "render Text",
+                                        "type": "string",
+                                        "example": "Bohužel, stránka se nepodařila načíst."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation patched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Translation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
         "/": {
             "get": {
                 "description": "Home page",
@@ -145,6 +441,90 @@
     },
     "components": {
         "schemas": {
+            "Language": {
+                "title": "Language",
+                "description": "Language model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Language",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Language",
+                        "type": "string",
+                        "example": "Czech"
+                    },
+                    "CZ": {
+                        "title": "abbreviation",
+                        "description": "abbreviation of Language",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Languages": {
+                "title": "Languages",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Language"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Translation": {
+                "title": "Translation",
+                "description": "Translation model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Translation",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Translation",
+                        "type": "string",
+                        "example": "Error 404 page"
+                    },
+                    "render": {
+                        "title": "render",
+                        "description": "what will be Rendered",
+                        "type": "string"
+                    },
+                    "language_id": {
+                        "title": "language_id",
+                        "description": "id of Language",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "Translations": {
+                "title": "Translations",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Translation"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User",
                 "description": "User model",
@@ -198,6 +578,26 @@
             }
         },
         "parameters": {
+            "Language--id": {
+                "name": "Language_id",
+                "in": "path",
+                "description": "Id of Language",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
+            "Translation--id": {
+                "name": "Translation_id",
+                "in": "path",
+                "description": "Id of Translation",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
             "User--id": {
                 "name": "User_id",
                 "in": "path",

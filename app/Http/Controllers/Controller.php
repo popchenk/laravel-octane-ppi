@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(title="PPI Api", version="0.1")
  *
+ *
  * @OA\Get(
  *     path="/",
  *     description="Home page",

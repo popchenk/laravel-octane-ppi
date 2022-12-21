@@ -38,10 +38,17 @@ class RegisterController extends Controller
      *      mediaType="application/json",
      *      @OA\Schema(
      *      @OA\Property(type="integer",description="id of User",title="id",property="id",example="1",readOnly="true"),
-     *      @OA\Property(type="string",description="name of User",title="name",property="name",example="Jozef Bugal"),
+     *      @OA\Property(type="string",description="first name of User",title="name",property="first_name",example="Jozef"),
+     *      @OA\Property(type="string",description="first name of User",title="name",property="last_name",example="Bugal"),
      *      @OA\Property(type="string",description="email of User",title="email",property="email"),
      *      @OA\Property(type="password",description="password of User",title="password",property="password",example="pass12Erasd"),
-     *      @OA\Property(type="password",description="password confirmation of User",title="password_confirmation",property="password_confirmation",example="pass12Erasd")
+     *      @OA\Property(type="password",description="password confirmation of User",title="password_confirmation",property="password_confirmation",example="pass12Erasd"),
+     *      @OA\Property(type="string",description="address of User",title="address",property="address"),
+     *      @OA\Property(type="date",description="Users date of Birth",title="date_of_birth",property="date_of_birth"),
+     *      @OA\Property(type="string",description="Users Phone number",title="phone",property="phone"),
+     *      @OA\Property(type="string",description="Users Phone Code",title="phone_code",property="phone_code"),
+     *      @OA\Property(type="string",description="Users Nationality",title="nationality",property="nationality"),
+     *      @OA\Property(type="string",description="User Details",title="details",property="details")
      *     )
      *    )
      *  ),
@@ -65,9 +72,15 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required|min:3',
+            'last_name' => 'required|min:3',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
+            'address' => 'required|min:3',
+            'date_of_birth' => 'required|date',
+            'phone' => 'required|min:5',
+            'phone_code' => 'required|min:3',
+            'nationality' => 'required|min:2',
         ]);
         $user = $this->model->create($request->all());
         $user->assignRole('User');
