@@ -5,6 +5,152 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/account/patch/": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Edit Account",
+                "description": "Edit Account",
+                "operationId": "patchAccount",
+                "requestBody": {
+                    "description": "Account to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "title": "name",
+                                        "description": "first name of User",
+                                        "type": "string",
+                                        "example": "Jozef"
+                                    },
+                                    "last_name": {
+                                        "title": "name",
+                                        "description": "first name of User",
+                                        "type": "string",
+                                        "example": "Bugal"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "description": "email of User",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "title": "address",
+                                        "description": "address of User",
+                                        "type": "string"
+                                    },
+                                    "date_of_birth": {
+                                        "title": "date_of_birth",
+                                        "description": "Users date of Birth",
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "phone": {
+                                        "title": "phone",
+                                        "description": "Users Phone number",
+                                        "type": "string"
+                                    },
+                                    "phone_code": {
+                                        "title": "phone_code",
+                                        "description": "Users Phone Code",
+                                        "type": "string"
+                                    },
+                                    "nationality": {
+                                        "title": "nationality",
+                                        "description": "Users Nationality",
+                                        "type": "string"
+                                    },
+                                    "details": {
+                                        "title": "details",
+                                        "description": "User Details",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User patched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/account/update-password/": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update Password",
+                "description": "Update Password",
+                "operationId": "patchPassword",
+                "requestBody": {
+                    "description": "Password to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "title": "password",
+                                        "description": "password of User",
+                                        "type": "password",
+                                        "example": "pass12Erasd"
+                                    },
+                                    "password_confirmation": {
+                                        "title": "password_confirmation",
+                                        "description": "password confirmation of User",
+                                        "type": "password",
+                                        "example": "pass12Erasd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Password patched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [

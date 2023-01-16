@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', 'App\Http\Controllers\Api\Auth\RegisterController@store');
 Route::post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
+Route::patch('account/patch/', 'App\Http\Controllers\Api\Account\EditController@patch');
+Route::patch('account/password-update/', 'App\Http\Controllers\Api\Account\PasswordController@patch');
 Route::post('translation/store', 'App\Http\Controllers\Api\Translation\TranslationController@store');
 Route::get('translation/get', 'App\Http\Controllers\Api\Translation\TranslationController@get');
 Route::patch('translation/patch/{id}', 'App\Http\Controllers\Api\Translation\TranslationController@patch');
