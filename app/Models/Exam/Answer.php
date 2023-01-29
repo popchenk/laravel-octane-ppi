@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Exam;
 
 use App\Support\HasRolesUuid;
 use App\Support\HasSocialLogin;
@@ -17,35 +17,36 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @OA\Schema(
- *   description="Language model",
- *   title="Language",
+ *   description="Answer model",
+ *   title="Answer",
  *   required={},
- *   @OA\Property(type="integer",description="id of Language",title="id",property="id",example="1",readOnly="true"),
- *   @OA\Property(type="string",description="name of Language",title="name",property="name",example="Czech"),
- *   @OA\Property(type="string",description="abbreviation of Language",title="abbreviation",property="CZ")
+ *   @OA\Property(type="integer",description="id of Answer",title="id",property="id",example="1",readOnly="true"),
+ *   @OA\Property(type="string",description="value of Answer",title="value",property="value",example="Pink"),
+ *   @OA\Property(type="boolean",description="correct Answer",title="correct",property="correct",example="1"),
+ *   @OA\Property(type="integer",description="id of Question",title="question_id",property="question_id",example="1")
  * )
  *
  * @OA\Schema(
- *   schema="Languages",
- *   title="Languages",
+ *   schema="Answers",
+ *   title="Answers",
  *   @OA\Property(title="data",property="data",type="array",
- *     @OA\Items(type="object",ref="#/components/schemas/Language"),
+ *     @OA\Items(type="object",ref="#/components/schemas/Answer"),
  *   )
  * )
  *
  * @OA\Parameter(
- *      parameter="Language--id",
+ *      parameter="Answer--id",
  *      in="path",
- *      name="Language_id",
+ *      name="Answer_id",
  *      required=true,
- *      description="Id of Language",
+ *      description="Id of Answer",
  *      @OA\Schema(
  *          type="integer",
  *          example="1",
  *      )
  * ),
  */
-class Language extends Model
+class Answer extends Model
 {
 
     /**
@@ -63,8 +64,9 @@ class Language extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'abbreviation'
+        'value',
+        'correct',
+        'question_id'
     ];
 
     public static function create(array $attributes = []): Model|Builder

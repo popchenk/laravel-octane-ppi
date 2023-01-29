@@ -21,6 +21,13 @@ Route::patch('account/password-update/', 'App\Http\Controllers\Api\Account\Passw
 Route::post('translation/store', 'App\Http\Controllers\Api\Translation\TranslationController@store');
 Route::get('translation/get', 'App\Http\Controllers\Api\Translation\TranslationController@get');
 Route::patch('translation/patch/{id}', 'App\Http\Controllers\Api\Translation\TranslationController@patch');
+Route::post('render/store', 'App\Http\Controllers\Api\Render\RenderController@store');
+Route::get('render/get', 'App\Http\Controllers\Api\Render\RenderController@get');
+Route::post('exam/store', 'App\Http\Controllers\Api\Exam\ExamController@store');
+Route::get('exam/get', 'App\Http\Controllers\Api\Exam\ExamController@get');
+Route::patch('exam/patch/{id}', 'App\Http\Controllers\Api\Exam\ExamController@patch');
+Route::get('exam/get-by-name/{name}', 'App\Http\Controllers\Api\Exam\ExamController@getByName');
+Route::patch('render/patch/{id}', 'App\Http\Controllers\Api\Render\RenderController@patch');
 Route::post('language/store', 'App\Http\Controllers\Api\Language\LanguageController@store');
 Route::get('language/get', 'App\Http\Controllers\Api\Language\LanguageController@get');
 Route::post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');

@@ -12,10 +12,7 @@ use League\Fractal\TransformerAbstract;
 class LanguageTransformer extends TransformerAbstract
 {
 
-    /**
-     * @var array
-     */
-    protected $defaultIncludes = ['translations'];
+
 
     /**
      * @param Language $model
@@ -30,13 +27,6 @@ class LanguageTransformer extends TransformerAbstract
         ];
     }
 
-    /**
-     * @param Language $model
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includeTranslations(Language $model)
-    {
-        return $this->collection($model->translations, new TranslationTransformer());
-    }
+
 
 }

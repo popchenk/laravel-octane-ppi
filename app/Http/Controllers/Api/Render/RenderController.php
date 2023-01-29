@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Translation;
+namespace App\Http\Controllers\Api\Render;
 
 use App\Http\Controllers\Controller;
+use App\Models\Render;
 use App\Models\Translation;
-use App\Transformers\Translations\TranslationTransformer;
+use App\Transformers\Render\RenderTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,41 +16,42 @@ use function fractal;
  * Class RegisterController
  * @package  App\Http\Controllers\Api\Auth
  */
-class TranslationController extends Controller
+class RenderController extends Controller
 {
     protected $model;
 
-    public function __construct(Translation $model)
+    public function __construct(Render $model)
     {
         $this->model = $model;
     }
 
     /**
      * @OA\Post(
-     *  operationId="createTranslation",
-     *  summary="Create new Translation",
-     *  description="Create new Translation",
-     *  tags={"Translations"},
-     *  path="/api/translation/store",
+     *  operationId="createRender",
+     *  summary="Create new Render",
+     *  description="Create new Render",
+     *  tags={"Renders"},
+     *  path="/api/render/store",
      *  @OA\RequestBody(
-     *    description="Translation to store",
+     *    description="Render to store",
      *    required=true,
      *    @OA\MediaType(
      *      mediaType="application/json",
      *      @OA\Schema(
-     *      @OA\Property(type="integer",description="id of Translation",title="id",property="id",example="1",readOnly="true"),
-     *      @OA\Property(type="string",description="name of Translation",title="name",property="name",example="Error 404 page"),
-     *      @OA\Property(type="string",description="abbreviation of Translation",title="abbreviation",property="abbreviation",example="404")
+     *      @OA\Property(type="integer",description="id of Render",title="id",property="id",example="1",readOnly="true"),
+     *      @OA\Property(type="string",description="render Text",title="render",property="render",example="Bohužel, stránka se nepodařila načíst."),
+     *      @OA\Property(type="integer",description="id of Language",title="language_id",property="language_id",example="1"),
+     *      @OA\Property(type="integer",description="id of Translation",title="translation_id",property="translation_id",example="1")
      *     )
      *    )
      *  ),
-     *  @OA\Response(response="201",description="Translation stored",
+     *  @OA\Response(response="201",description="Render stored",
      *     @OA\JsonContent(
      *      @OA\Property(
      *       title="data",
      *       property="data",
      *       type="object",
-     *       ref="#/components/schemas/Translation"
+     *       ref="#/components/schemas/Render"
      *      ),
      *    ),
      *  ),
@@ -63,28 +65,30 @@ class TranslationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'render' => 'required',
+            'language_id' => 'required',
+            'translation_id' => 'required'
         ]);
-        $translation = $this->model->create($request->all());
+        $render = $this->model->create($request->all());
 
-        return fractal($translation, new TranslationTransformer())->respond(201);
+        return fractal($render, new RenderTransformer())->respond(201);
     }
 
     /**
      * @OA\Get(
-     *  operationId="getTranslations",
-     *  summary="Get all Translations",
-     *  description="Get all Translation",
-     *  tags={"Translations"},
-     *  path="/api/translation/get",
+     *  operationId="getRenders",
+     *  summary="Get all Renders",
+     *  description="Get all Renders",
+     *  tags={"Renders"},
+     *  path="/api/render/get",
      *  @OA\RequestBody(),
-     *  @OA\Response(response="200",description="Get Translations",
+     *  @OA\Response(response="200",description="Get Renders",
      *     @OA\JsonContent(
      *      @OA\Property(
      *       title="data",
      *       property="data",
      *       type="object",
-     *       ref="#/components/schemas/Translation"
+     *       ref="#/components/schemas/Render"
      *      ),
      *    ),
      *  ),
@@ -97,21 +101,21 @@ class TranslationController extends Controller
      */
     public function get(Request $request)
     {
-        $paginator = $this->model->with('renders')->paginate($request->get('limit', config('app.pagination_limit')));
+        $paginator = $this->model->with('languages')->with('translations')->paginate($request->get('limit', config('app.pagination_limit')));
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
         }
 
-        return fractal($paginator, new TranslationTransformer())->respond();
+        return fractal($paginator, new RenderTransformer())->respond();
     }
 
     /**
      * @OA\Patch(
-     *  operationId="patchTranslation",
-     *  summary="Update Translation",
-     *  description="Update Translation",
-     *  tags={"Translations"},
-     *  path="/api/translation/patch/{id}",
+     *  operationId="patchRender",
+     *  summary="Update Render",
+     *  description="Update Render",
+     *  tags={"Renders"},
+     *  path="/api/render/patch/{id}",
      *  @OA\Parameter (
      *          parameter="id",
      *          name="id",
@@ -123,12 +127,12 @@ class TranslationController extends Controller
      *          required=true
      *  ),
      *  @OA\RequestBody(
-     *    description="Translation to store",
+     *    description="Render to store",
      *    required=true,
      *    @OA\MediaType(
      *      mediaType="application/json",
      *      @OA\Schema(
-     *      @OA\Property(type="string",description="name of Translation",title="name",property="name",example="Error 404 page")
+     *      @OA\Property(type="string",description="render Text",title="render",property="render",example="Bohužel, stránka se nepodařila načíst.")
      *     )
      *    ),
      *  ),
@@ -153,10 +157,10 @@ class TranslationController extends Controller
     {
         $translation = $this->model->where('id', $id)->firstOrFail();
         $this->validate($request, [
-            'name' => 'required'
+            'render' => 'required'
         ]);
         $translation->update($request->toArray());
-        return fractal($translation, new TranslationTransformer())->respond();
+        return fractal($translation, new RenderTransformer())->respond();
     }
 
 }

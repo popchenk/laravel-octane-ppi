@@ -315,6 +315,184 @@
                 }
             }
         },
+        "/api/exam/store": {
+            "post": {
+                "tags": [
+                    "Exams"
+                ],
+                "summary": "Create new Exam",
+                "description": "Create new Exam",
+                "operationId": "createExam",
+                "requestBody": {
+                    "description": "Exam to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "exam": {
+                                        "$ref": "#/components/schemas/Exam"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Exam stored",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Exam"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/exam/get": {
+            "get": {
+                "tags": [
+                    "Exams"
+                ],
+                "summary": "Get all Exams",
+                "description": "Get all Exams",
+                "operationId": "getExams",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Get Exams",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Exam"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/exam/get-by-name/{name}": {
+            "get": {
+                "tags": [
+                    "Exams"
+                ],
+                "summary": "Get all Exams by name",
+                "description": "Get all Exams by name",
+                "operationId": "getExamsByName",
+                "parameters": [
+                    {
+                        "parameter": "name",
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name to patch",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Get Exams by name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Exam"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/exam/patch/{id}": {
+            "patch": {
+                "tags": [
+                    "Exams"
+                ],
+                "summary": "Update Exam",
+                "description": "Update Exam",
+                "operationId": "patchExam",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID to patch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Exam to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "exam": {
+                                        "$ref": "#/components/schemas/Exam"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation patched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Translation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
         "/api/language/store": {
             "post": {
                 "tags": [
@@ -408,6 +586,166 @@
                 }
             }
         },
+        "/api/render/store": {
+            "post": {
+                "tags": [
+                    "Renders"
+                ],
+                "summary": "Create new Render",
+                "description": "Create new Render",
+                "operationId": "createRender",
+                "requestBody": {
+                    "description": "Render to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "title": "id",
+                                        "description": "id of Render",
+                                        "type": "integer",
+                                        "readOnly": "true",
+                                        "example": "1"
+                                    },
+                                    "render": {
+                                        "title": "render",
+                                        "description": "render Text",
+                                        "type": "string",
+                                        "example": "Bohužel, stránka se nepodařila načíst."
+                                    },
+                                    "language_id": {
+                                        "title": "language_id",
+                                        "description": "id of Language",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "translation_id": {
+                                        "title": "translation_id",
+                                        "description": "id of Translation",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Render stored",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Render"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/render/get": {
+            "get": {
+                "tags": [
+                    "Renders"
+                ],
+                "summary": "Get all Renders",
+                "description": "Get all Renders",
+                "operationId": "getRenders",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Get Renders",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Render"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/api/render/patch/{id}": {
+            "patch": {
+                "tags": [
+                    "Renders"
+                ],
+                "summary": "Update Render",
+                "description": "Update Render",
+                "operationId": "patchRender",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID to patch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Render to store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "render": {
+                                        "title": "render",
+                                        "description": "render Text",
+                                        "type": "string",
+                                        "example": "Bohužel, stránka se nepodařila načíst."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation patched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Translation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
         "/api/translation/store": {
             "post": {
                 "tags": [
@@ -436,17 +774,11 @@
                                         "type": "string",
                                         "example": "Error 404 page"
                                     },
-                                    "render": {
-                                        "title": "render",
-                                        "description": "render Text",
+                                    "abbreviation": {
+                                        "title": "abbreviation",
+                                        "description": "abbreviation of Translation",
                                         "type": "string",
-                                        "example": "Bohužel, stránka se nepodařila načíst."
-                                    },
-                                    "language_id": {
-                                        "title": "language_id",
-                                        "description": "id of Language",
-                                        "type": "integer",
-                                        "example": "1"
+                                        "example": "404"
                                     }
                                 },
                                 "type": "object"
@@ -539,12 +871,6 @@
                                         "description": "name of Translation",
                                         "type": "string",
                                         "example": "Error 404 page"
-                                    },
-                                    "render": {
-                                        "title": "render",
-                                        "description": "render Text",
-                                        "type": "string",
-                                        "example": "Bohužel, stránka se nepodařila načíst."
                                     }
                                 },
                                 "type": "object"
@@ -587,6 +913,181 @@
     },
     "components": {
         "schemas": {
+            "Answer": {
+                "title": "Answer",
+                "description": "Answer model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Answer",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "value": {
+                        "title": "value",
+                        "description": "value of Answer",
+                        "type": "string",
+                        "example": "Pink"
+                    },
+                    "correct": {
+                        "title": "correct",
+                        "description": "correct Answer",
+                        "type": "boolean",
+                        "example": "1"
+                    },
+                    "question_id": {
+                        "title": "question_id",
+                        "description": "id of Question",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "Answers": {
+                "title": "Answers",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Answer"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Exam": {
+                "title": "Exam",
+                "description": "Exam model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Exam",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Exam",
+                        "type": "string",
+                        "example": "AJ 1"
+                    },
+                    "pages": {
+                        "$ref": "#/components/schemas/Pages"
+                    }
+                },
+                "type": "object"
+            },
+            "Exams": {
+                "title": "Exams",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Exam"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Page": {
+                "title": "Page",
+                "description": "Page model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Page",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Page",
+                        "type": "string",
+                        "example": "stránka 1"
+                    },
+                    "content": {
+                        "title": "content",
+                        "description": "content of Page",
+                        "type": "string",
+                        "example": "yesyeys"
+                    },
+                    "exam_id": {
+                        "title": "exam_id",
+                        "description": "id of Exam",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "questions": {
+                        "$ref": "#/components/schemas/Questions"
+                    }
+                },
+                "type": "object"
+            },
+            "Pages": {
+                "title": "Pages",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Page"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Question": {
+                "title": "Page",
+                "description": "Question model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Question",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Question",
+                        "type": "string",
+                        "example": "Růžová anglicky"
+                    },
+                    "page_id": {
+                        "title": "page_id",
+                        "description": "id of Page",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "answers": {
+                        "$ref": "#/components/schemas/Answers"
+                    }
+                },
+                "type": "object"
+            },
+            "Questions": {
+                "title": "Questions",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Question"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Language": {
                 "title": "Language",
                 "description": "Language model",
@@ -621,6 +1122,50 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Language"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Render": {
+                "title": "Render",
+                "description": "Render model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Render",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "render": {
+                        "title": "render",
+                        "description": "text to be Rendered",
+                        "type": "string",
+                        "example": "Bohužel, stránka se nepodařila načíst."
+                    },
+                    "language_id": {
+                        "title": "language_id",
+                        "description": "id of Language",
+                        "type": "integer"
+                    },
+                    "translation_id": {
+                        "title": "translation_id",
+                        "description": "id of Translation",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Renders": {
+                "title": "Renders",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Render"
                         }
                     }
                 },
@@ -724,10 +1269,60 @@
             }
         },
         "parameters": {
+            "Answer--id": {
+                "name": "Answer_id",
+                "in": "path",
+                "description": "Id of Answer",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
+            "Exam--id": {
+                "name": "Exam_id",
+                "in": "path",
+                "description": "Id of Exam",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
+            "Page--id": {
+                "name": "Page_id",
+                "in": "path",
+                "description": "Id of Page",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
+            "Question--id": {
+                "name": "Question_id",
+                "in": "path",
+                "description": "Id of Question",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
             "Language--id": {
                 "name": "Language_id",
                 "in": "path",
                 "description": "Id of Language",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            },
+            "Render--id": {
+                "name": "Render_id",
+                "in": "path",
+                "description": "Id of Render",
                 "required": true,
                 "schema": {
                     "type": "integer",

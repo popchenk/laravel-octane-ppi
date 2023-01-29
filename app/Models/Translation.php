@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -65,14 +66,12 @@ class Translation extends Model
      */
     protected $fillable = [
         'name',
-        'render',
-        'language_id'
+        'abbreviation'
     ];
 
-
-    public function languages()
+    public function renders()
     {
-        return $this->belongsTo(Language::class);
+        return $this->hasMany(Render::class);
     }
 
     public static function create(array $attributes = []): Model|Builder

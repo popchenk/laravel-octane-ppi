@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Transformers\Translations;
+namespace App\Transformers\Exams;
 
+use App\Models\Exam\Question;
 use App\Models\Render;
 use App\Models\Translation;
 use App\Transformers\Languages\LanguageTransformer;
@@ -12,16 +13,16 @@ use League\Fractal\TransformerAbstract;
 /**
  *
  */
-class TranslationTransformer extends TransformerAbstract
+class QuestionTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = ['renders'];
+    protected $defaultIncludes = ['answers'];
 
     /**
-     * @param Translation $model
+     * @param Question $model
      * @return array
      */
-    public function transform(Translation $model)
+    public function transform(Question $model)
     {
         return [
             'id' => $model->id,
@@ -30,9 +31,9 @@ class TranslationTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeRenders(Translation $model)
+    public function includeAnswers(Question $model)
     {
-        return $this->collection($model->renders, new RenderTransformer());
+        return $this->collection($model->answers, new AnswerTransformer());
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Exam;
 
 use App\Support\HasRolesUuid;
 use App\Support\HasSocialLogin;
@@ -8,6 +8,7 @@ use App\Support\UuidScopeTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,35 +18,39 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @OA\Schema(
- *   description="Language model",
- *   title="Language",
+ *   description="Question model",
+ *   title="Page",
  *   required={},
- *   @OA\Property(type="integer",description="id of Language",title="id",property="id",example="1",readOnly="true"),
- *   @OA\Property(type="string",description="name of Language",title="name",property="name",example="Czech"),
- *   @OA\Property(type="string",description="abbreviation of Language",title="abbreviation",property="CZ")
+ *   @OA\Property(type="integer",description="id of Question",title="id",property="id",example="1",readOnly="true"),
+ *   @OA\Property(type="string",description="name of Question",title="name",property="name",example="Růžová anglicky"),
+ *   @OA\Property(type="integer",description="id of Page",title="page_id",property="page_id",example="1"),
+ *   @OA\Property(
+ *   property="answers",
+ *   ref="#/components/schemas/Answers"
+ *   )
  * )
  *
  * @OA\Schema(
- *   schema="Languages",
- *   title="Languages",
+ *   schema="Questions",
+ *   title="Questions",
  *   @OA\Property(title="data",property="data",type="array",
- *     @OA\Items(type="object",ref="#/components/schemas/Language"),
+ *     @OA\Items(type="object",ref="#/components/schemas/Question"),
  *   )
  * )
  *
  * @OA\Parameter(
- *      parameter="Language--id",
+ *      parameter="Question--id",
  *      in="path",
- *      name="Language_id",
+ *      name="Question_id",
  *      required=true,
- *      description="Id of Language",
+ *      description="Id of Question",
  *      @OA\Schema(
  *          type="integer",
  *          example="1",
  *      )
  * ),
  */
-class Language extends Model
+class Question extends Model
 {
 
     /**
@@ -64,8 +69,13 @@ class Language extends Model
      */
     protected $fillable = [
         'name',
-        'abbreviation'
+        'page_id'
     ];
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class);
+    }
 
     public static function create(array $attributes = []): Model|Builder
     {

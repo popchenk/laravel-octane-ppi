@@ -98,7 +98,7 @@ class LanguageController extends Controller
      */
     public function get(Request $request)
     {
-        $paginator = $this->model->with('translations')->paginate($request->get('limit', config('app.pagination_limit')));
+        $paginator = $this->model->all();
         if ($request->has('limit')) {
             $paginator->appends('limit', $request->get('limit'));
         }

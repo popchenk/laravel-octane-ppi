@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Exam;
 
 use App\Support\HasRolesUuid;
 use App\Support\HasSocialLogin;
@@ -8,6 +8,7 @@ use App\Support\UuidScopeTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,35 +18,38 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @OA\Schema(
- *   description="Language model",
- *   title="Language",
+ *   description="Exam model",
+ *   title="Exam",
  *   required={},
- *   @OA\Property(type="integer",description="id of Language",title="id",property="id",example="1",readOnly="true"),
- *   @OA\Property(type="string",description="name of Language",title="name",property="name",example="Czech"),
- *   @OA\Property(type="string",description="abbreviation of Language",title="abbreviation",property="CZ")
+ *   @OA\Property(type="integer",description="id of Exam",title="id",property="id",example="1",readOnly="true"),
+ *   @OA\Property(type="string",description="name of Exam",title="name",property="name",example="AJ 1"),
+ *   @OA\Property(
+ *   property="pages",
+ *   ref="#/components/schemas/Pages"
+ *   )
  * )
  *
  * @OA\Schema(
- *   schema="Languages",
- *   title="Languages",
+ *   schema="Exams",
+ *   title="Exams",
  *   @OA\Property(title="data",property="data",type="array",
- *     @OA\Items(type="object",ref="#/components/schemas/Language"),
+ *     @OA\Items(type="object",ref="#/components/schemas/Exam"),
  *   )
  * )
  *
  * @OA\Parameter(
- *      parameter="Language--id",
+ *      parameter="Exam--id",
  *      in="path",
- *      name="Language_id",
+ *      name="Exam_id",
  *      required=true,
- *      description="Id of Language",
+ *      description="Id of Exam",
  *      @OA\Schema(
  *          type="integer",
  *          example="1",
  *      )
  * ),
  */
-class Language extends Model
+class Exam extends Model
 {
 
     /**
@@ -63,9 +67,13 @@ class Language extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'abbreviation'
+        'name'
     ];
+
+    public function pages(): HasMany
+    {
+        return $this->hasMany(Page::class);
+    }
 
     public static function create(array $attributes = []): Model|Builder
     {
